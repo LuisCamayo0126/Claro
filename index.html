@@ -502,12 +502,11 @@
   <script>
     // Color cycling for the chat container (assistant) with a small control button.
     (function(){
+      // Paletas: combinaciones verde, naranja y gris
       const palettes = [
-        ['#ff7a59','#06b6d4'],
-        ['#7dd3fc','#7b2ff7'],
-        ['#34d399','#60a5fa'],
-        ['#f472b6','#f59e0b'],
-        ['#a78bfa','#06b6d4']
+        ['#10b981','#fb923c'], // verde + naranja
+        ['#94a3b8','#10b981'], // gris + verde
+        ['#fb923c','#94a3b8']  // naranja + gris
       ];
       let idx = 0;
       let playing = true;
@@ -532,18 +531,56 @@
         el.style.setProperty('--chat-accent', c2);
       }
 
+      // attempt to style internal UI elements (best-effort)
+      function styleInnerUI(i){
+        if(!el) return;
+        const [c1,c2] = palettes[i % palettes.length];
+        const bubbleSelectors = ['.message','.bubble','.n8n-message','.chat-message','.chat-bubble','.message-bubble'];
+        const headerSelectors = ['.chat-header','header','.n8n-header','.widget-header'];
+        const sendSelectors = ['button.send','button[type="submit"]','.send-button','.n8n-send'];
+
+        // header
+        headerSelectors.forEach(s => {
+          const h = el.querySelector(s);
+          if(h) {
+            h.style.background = c2;
+            h.style.color = '#fff';
+          }
+        });
+
+        // bubbles
+        bubbleSelectors.forEach(s => {
+          const nodes = el.querySelectorAll(s);
+          nodes.forEach((n, idx2) => {
+            const bg = (idx2 % 2 === 0) ? c1 : c2;
+            try{ n.style.background = bg; n.style.color = '#071026'; n.style.borderRadius = '10px'; }
+            catch(e){}
+          });
+        });
+
+        // send button
+        sendSelectors.forEach(s=>{
+          const b = el.querySelector(s);
+          if(b){ b.style.background = c2; b.style.color = '#fff'; b.style.border = 'none'; }
+        });
+      }
+
       // create control button inside the container (overlay)
       function createButton(){
         if(!el) return;
         const btn = document.createElement('button');
         btn.setAttribute('aria-pressed','false');
         btn.className = 'chat-accent-toggle';
-        btn.title = 'Cambiar color del asistente (click para siguiente, play/pause)';
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 3v18l14-9L5 3z" fill="#0b1220"/></svg>';
+        btn.title = 'Cambiar color del asistente (click para siguiente, click-derecho para pausar)';
+        btn.innerHTML = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 3v18l14-9L5 3z" fill="currentColor"/></svg>';
+        // set initial icon color to first palette
+        btn.style.color = palettes[0][0];
         btn.addEventListener('click', e => {
           // advance palette
           idx = (idx + 1) % palettes.length;
           applyPalette(idx);
+          styleInnerUI(idx);
+          btn.style.color = palettes[idx][0];
         });
         btn.addEventListener('contextmenu', e => {
           e.preventDefault();
@@ -559,12 +596,18 @@
       // initial apply
       applyPalette(idx);
       createButton();
+      // attempt initial styling of inner UI after render
+      setTimeout(()=> styleInnerUI(idx), 700);
 
       // cycle every 4.5s
       setInterval(()=>{
         if(!playing) return;
         idx = (idx + 1) % palettes.length;
         applyPalette(idx);
+        // also try to style inner UI after palette change
+        setTimeout(()=> styleInnerUI(idx), 250);
+        const btn = el && el.querySelector('.chat-accent-toggle');
+        if(btn) btn.style.color = palettes[idx][0];
       }, 4500);
     })();
   </script>
