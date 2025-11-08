@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NetNova | Conexiones Futuristas</title>
+  <meta name="description" content="Internet ultrarrápido, conectividad inteligente y soluciones tecnológicas avanzadas." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --azul: #0b132b;
+      --azul-oscuro: #060918;
+      --morado: #7b2ff7;
+      --morado-claro: #9d5cff;
+      --cian: #00f5ff;
+      --gris: #a8b2d1;
+      --blanco: #f5f7ff;
+      --vidrio: rgba(255, 255, 255, 0.06);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, #10142d, #050510 60%);
+      color: var(--blanco);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(10, 10, 20, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .brand img {
+      height: 46px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 26px;
+    }
+
+    nav a {
+      color: var(--blanco);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--cian);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .cta {
+      background: linear-gradient(90deg, var(--morado) 0%, var(--cian) 100%);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+      transition: transform 0.3s;
+    }
+
+    .cta:hover {
+      transform: scale(1.05);
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0a0d25 0%, #1d0b47 100%);
+      text-align: center;
+      padding: 120px 20px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(123,47,247,0.3) 0%, transparent 70%);
+      filter: blur(60px);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, var(--cian), var(--morado-claro));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      margin-top: 16px;
+      color: var(--gris);
+      font-size: 1.1rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--cian);
+      color: var(--cian);
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      background: var(--cian);
+      color: #0a0d25;
+    }
+
+    /* PROMOS */
+    section {
+      margin: 60px 0;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--cian);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .promos {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 10px 0;
+      scroll-behavior: smooth;
+    }
+
+    .promo-card {
+      min-width: 320px;
+      background: var(--vidrio);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 20px rgba(0,245,255,0.2);
+    }
+
+    .promo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .promo-card div {
+      padding: 16px;
+      color: var(--blanco);
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      padding: 0 10px;
+    }
+
+    .card {
+      background: var(--vidrio);
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 14px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 20px rgba(123,47,247,0.3);
+      transform: translateY(-6px);
+    }
+
+    .card h3 {
+      color: var(--morado-claro);
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      color: var(--cian);
+      font-weight: 700;
+      margin: 8px 0;
+    }
+
+    /* FORM */
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    form input, form textarea, form select {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      color: var(--blanco);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    button {
+      background: linear-gradient(90deg, var(--morado), var(--cian));
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(0,245,255,0.3);
+    }
+
+    button:hover {
+      transform: scale(1.03);
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(10,10,20,0.9);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--gris);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    footer a {
+      color: var(--cian);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .contact { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Claro_logo_2020.svg" alt="NetNova" />
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#planes">Planes</a></li>
+          <li><a href="#empresas">Empresas</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#contacto">Conéctate ahora</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Bienvenido al futuro de la conectividad</h1>
+    <p>Velocidades ultra altas, baja latencia y tecnología inteligente en una sola red. Prepárate para una nueva era digital.</p>
+    <div class="hero-buttons">
+      <a class="cta" href="#planes">Explorar planes</a>
+      <a class="btn-outline" href="#contacto">Habla con un asesor</a>
+    </div>
+  </section>
+
+  <div class="container">
+    <section id="promos">
+      <h2>Promociones destacadas</h2>
+      <div class="promos">
+        <div class="promo-card">
+          <img src="https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?auto=format&fit=crop&w=800&q=80" alt="Promo fibra" />
+          <div>
+            <h3>Fibra 1 Gbps</h3>
+            <p>Potencia total para tu hogar digital. ¡Instalación sin costo!</p>
+          </div>
+        </div>
+        <div class="promo-card">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Promo empresa" />
+          <div>
+            <h3>Conectividad empresarial</h3>
+            <p>Soluciones dedicadas con disponibilidad del 99.9%.</p>
+          </div>
+        </div>
+        <div class="promo-card">
+          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" alt="Promo móvil" />
+          <div>
+            <h3>Plan móvil ilimitado</h3>
+            <p>Datos sin límites con roaming global incluido.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <h2>Servicios Inteligentes</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Internet Hogar</h3>
+          <p>Conexión estable con velocidades simétricas y Wi-Fi 6.</p>
+        </div>
+        <div class="card">
+          <h3>Cloud</h3>
+          <p>Infraestructura segura y escalable en la nube de nueva generación.</p>
+        </div>
+        <div class="card">
+          <h3>IoT</h3>
+          <p>Conecta y gestiona tus dispositivos inteligentes en tiempo real.</p>
+        </div>
+        <div class="card">
+          <h3>AI Connectivity</h3>
+          <p>Automatización y predicción con algoritmos de inteligencia avanzada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="planes">
+      <h2>Planes NeoFiber</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Neo 300 Mbps</h3>
+          <div class="price">$59.900 / mes</div>
+          <p>Ideal para streaming, gaming y videollamadas en HD.</p>
+          <a class="cta" href="#contacto">Contratar</a>
+        </div>
+        <div class="card">
+          <h3>Neo 600 Mbps</h3>
+          <div class="price">$89.900 / mes</div>
+          <p>Velocidad simétrica con Wi-Fi 6 y soporte IA 24/7.</p>
+          <a class="cta" href="#contacto">Contratar</a>
+        </div>
+        <div class="card">
+          <h3>Neo Max (1 Gbps)</h3>
+          <div class="price">$139.900 / mes</div>
+          <p>La máxima experiencia digital. Streaming, IoT y trabajo remoto sin límites.</p>
+          <a class="cta" href="#contacto">Contratar</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h2>Contáctanos</h2>
+      <div class="contact">
+        <form id="contactForm">
+          <label>Nombre completo</label>
+          <input name="name" required>
+          <label>Correo electrónico</label>
+          <input type="email" name="email" required>
+          <label>Interés</label>
+          <select name="service">
+            <option>Internet</option>
+            <option>Cloud</option>
+            <option>IoT</option>
+            <option>Corporativo</option>
+          </select>
+          <label>Mensaje</label>
+          <textarea rows="4"></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+
+        <div class="card">
+          <h3>Centro de atención</h3>
+          <p>Línea nacional: <strong>01 8000 999 999</strong></p>
+          <p>Soporte técnico: <strong>*611</strong></p>
+          <p><strong>Horario:</strong> 24/7 con atención virtual</p>
+          <p><strong>Ubicación:</strong> Bogotá, Colombia</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div>© 2025 NetNova — Conectando el futuro. Inspirado en Claro, rediseño futurista.</div>
+    <div class="socials" style="margin-top:10px;">
+      <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">YouTube</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Gracias por comunicarte con NetNova. Pronto un asesor te contactará.');
+      e.target.reset();
+    });
+  </script>
+
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    createChat({
+      webhookUrl: 'https://susanna-overcold-nonblindingly.ngrok-free.dev/webhook/86fc02b2-25ed-4778-8e68-c3e0bbd8a271/chat',
+      target: '#n8n-chat',
+      mode: 'window',
+      defaultLanguage: 'es',
+      initialMessages: ['¡Bienvenido a NetNova! 💫', 'Soy tu asistente virtual futurista. ¿Qué deseas explorar hoy?'],
+    });
+  </script>
+</body>
+</html>
